@@ -102,4 +102,3 @@ Listo, en este punto debería visualizar que la base de datos ha sido desplegada
 
 Puede visualizar el video explicativo del proceso en el siguiente enlace:
 **[Ver Video en YouTube](https://youtu.be/nueDscZmX2o)**
-```

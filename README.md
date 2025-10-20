@@ -2,6 +2,9 @@
 
 Este repositorio contiene los artefactos para el despliegue y configuración de la base de datos para el sistema de generación de turnos de Servicios LiMar, como parte de la evaluación práctica del curso de Bases de Datos (750006C).
 
+Escuela de Ingeniería en Sistemas y Computación
+Universidad del Valle, 2025
+
 **Autor:** David Esteban Valencia Valencia (2415092)
 
 ## Prerrequisitos
@@ -31,8 +34,8 @@ Este comando creará un servidor de PostgreSQL v14.
 ```bash
 docker run --name postgres-dbcourse -p 5432:5432 -e POSTGRES_USER=ulimar -e POSTGRES_PASSWORD=ex4men_db -d postgres:14
 ```
-*   `--name postgres-dbcourse`: Asigna un nombre al contenedor.
-*   `-p 5432:5432`: Mapea el puerto 5432 de su máquina al puerto 5432 del contenedor.
+*   `--name postgres-dbcourse`: Asigna un nombre al contenedor, en este caso `postgres-dbcourse`.
+*   `-p 5432:5432`: Mapea el puerto 5432 de la máquina local al puerto 5432 del contenedor.
 *   `-e POSTGRES_USER` y `-e POSTGRES_PASSWORD`: Establecen las credenciales de superusuario de la base de datos.
 
 **b) Levantar el contenedor de pgAdmin:**
@@ -40,15 +43,15 @@ Este comando creará una instancia de pgAdmin 4 para gestionar la base de datos.
 ```bash
 docker run --name pgadmin-dbcourse -p 5050:80 -e PGADMIN_DEFAULT_EMAIL=usuario@servilimar.com -e PGADMIN_DEFAULT_PASSWORD=limar#123 -d dpage/pgadmin4
 ```
-*   `--name pgadmin-dbcourse`: Asigna un nombre al contenedor.
-*   `-p 5050:80`: Mapea el puerto 5050 de su máquina al puerto 80 del contenedor.
+*   `--name pgadmin-dbcourse`: Asigna el nombre `pgadmin-dbcourse` al contenedor.
+*   `-p 5050:80`: Mapea el puerto 5050 de la máquina local al puerto 80 del contenedor.
 *   `-e PGADMIN_DEFAULT_EMAIL` y `-e PGADMIN_DEFAULT_PASSWORD`: Establecen las credenciales para iniciar sesión en la interfaz web de pgAdmin.
 
 ### 3. Acceder a pgAdmin
 
 Abra su navegador web y diríjase a la siguiente URL:
 **[http://localhost:5050](http://localhost:5050)**
-
+![pgAdmin home](resources/pgAdmin_GUI.png)
 Observará la pantalla home de pgAdmin. Inicie sesión con las credenciales definidas en el paso anterior:
 *   **Email:** `usuario@servilimar.com`
 *   **Password:** `limar#123`
@@ -60,6 +63,7 @@ Una vez dentro de pgAdmin, configure la conexión a la base de datos:
 1.  Haga clic en **"Add New Server"**.
 2.  En la pestaña **General**, asigne un nombre a la conexión (ej. `parcial1-postgres`).
 3.  Vaya a la pestaña **Connection** y complete los siguientes campos:
+![Connection Settings](resources/server_connection_settings.png)
     *   **Host name/address:** `host.docker.internal` (Este host especial permite que el contenedor de pgAdmin se comunique con los puertos de su máquina local).
     *   **Port:** `5432`
     *   **Maintenance database:** `postgres` (por defecto)
@@ -70,7 +74,7 @@ Una vez dentro de pgAdmin, configure la conexión a la base de datos:
 ### 5. Crear la Base de Datos
 
 Con el servidor ya conectado:
-1.  Despliegue el servidor `parcial1-postgres` (o el nombre que prefiera) en el panel izquierdo.
+1.  Despliegue el servidor `parcial1-postgres` (o el nombre que haya asignado) en el panel izquierdo.
 2.  Haga clic derecho sobre **Databases** y seleccione **Create > Database...**.
 3.  En el campo **Database**, ingrese el nombre `servilimar`.
 4.  Haga clic en **Save**.
@@ -81,6 +85,7 @@ Ahora que la base de datos `servilimar` está creada y vacía, vamos a crear las
 
 1.  Seleccione la base de datos `servilimar` en el panel izquierdo.
 2.  Abra la herramienta de consultas haciendo clic en **Tools > Query Tool**.
+![Query Tools](resources/query_tools.png)
 3.  **Crear las Tablas (DDL):**
     *   Copie todo el contenido del archivo `servilimar_DDL.sql` de este repositorio.
     *   Pegue el contenido en la ventana del Query Tool.
